@@ -1,0 +1,189 @@
+openapi: 3.0.3
+info:
+  title: Demo Spring Boot OOP API
+  version: 1.0.0
+  description: |
+    API REST para gestión de productos y demos de integración con IA.
+servers:
+  - url: http://localhost:8080
+paths:
+  /api/products:
+    get:
+      summary: Listar todos los productos
+      operationId: listProducts
+      responses:
+        '200':
+          description: Lista de productos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+    post:
+      summary: Crear un nuevo producto
+      operationId: createProduct
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductInput'
+      responses:
+        '201':
+          description: Producto creado
+          headers:
+            Location:
+              description: URI del nuevo recurso
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+  /api/products/{id}:
+    parameters:
+      - $ref: '#/components/parameters/PathId'
+    get:
+      summary: Obtener un producto por ID
+      operationId: getProductById
+      responses:
+        '200':
+          description: Producto encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      summary: Actualizar un producto existente
+      operationId: updateProduct
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductInput'
+      responses:
+        '200':
+          description: Producto actualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      summary: Eliminar un producto
+      operationId: deleteProduct
+      responses:
+        '204':
+          description: Producto eliminado
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /api/ia/chat:
+    get:
+      summary: Demo de chat IA
+      operationId: chatWithIa
+      parameters:
+        - in: query
+          name: prompt
+          schema:
+            type: string
+          required: true
+          description: Texto de entrada para el chat IA
+      responses:
+        '200':
+          description: Respuesta generada (o fallback demo)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatResponse'
+
+  /api/ia/sentiment:
+    get:
+      summary: Demo de análisis de sentimiento
+      operationId: analyzeSentiment
+      parameters:
+        - in: query
+          name: text
+          schema:
+            type: string
+          required: true
+          description: Texto a analizar
+      responses:
+        '200':
+          description: Resultado de sentimiento
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SentimentResponse'
+
+components:
+  parameters:
+    PathId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+      description: Identificador del recurso
+
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        price:
+          type: number
+          format: float
+      required:
+        - id
+        - name
+        - price
+
+    ProductInput:
+      type: object
+      properties:
+        name:
+          type: string
+        price:
+          type: number
+          format: float
+      required:
+        - name
+        - price
+
+    ChatResponse:
+      type: object
+      properties:
+        response:
+          type: string
+      required:
+        - response
+
+    SentimentResponse:
+      type: object
+      properties:
+        sentiment:
+          type: string
+      required:
+        - sentiment
+
+  responses:
+    NotFound:
+      description: Recurso no encontrado
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
