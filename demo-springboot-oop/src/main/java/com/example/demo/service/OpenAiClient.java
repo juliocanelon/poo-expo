@@ -4,6 +4,7 @@ import com.theokanning.openai.completion.chat.ChatCompletionRequest;
 import com.theokanning.openai.completion.chat.ChatCompletionResult;
 import com.theokanning.openai.completion.chat.ChatMessage;
 import com.theokanning.openai.service.OpenAiService;
+import com.example.demo.service.AiClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,7 @@ import java.util.List;
  * Minimal OpenAI client wrapper used for demo purposes.
  */
 @Service
-public class OpenAiClient {
+public class OpenAiClient implements AiClient {
 
     @Value("${OPENAI_API_KEY}")
     private String apiKey;

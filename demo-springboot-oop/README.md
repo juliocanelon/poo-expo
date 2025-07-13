@@ -36,7 +36,7 @@ Actuator health:
 curl http://localhost:8080/actuator/health
 ```
 
-OpenAI chat (will respond with placeholder unless `OPENAI_API_KEY` is set):
+Anthropic chat (will respond with placeholder unless `ANTHROPIC_API_KEY` is set):
 
 ```bash
 curl http://localhost:8080/api/ia/chat?prompt=Hello
