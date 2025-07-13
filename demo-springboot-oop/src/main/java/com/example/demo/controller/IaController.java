@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.service.OpenAiClient;
+import com.example.demo.service.ChatService;
 import com.example.demo.service.SentimentService;
 import lombok.RequiredArgsConstructor;
 import java.util.Map;
@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class IaController {
 
-    private final OpenAiClient openAiClient;
+    private final ChatService chatService;
     private final SentimentService sentimentService;
 
     @GetMapping("/chat")
     public ResponseEntity<Map<String, String>> chat(@RequestParam String prompt) {
         try {
-            String result = openAiClient.chat(prompt);
+            String result = chatService.chat(prompt);
             return ResponseEntity.ok(Map.of("response", result));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

@@ -1,11 +1,11 @@
-package com.example.demo.service;
+package com.example.demo.client;
 
 import com.theokanning.openai.completion.chat.ChatCompletionRequest;
 import com.theokanning.openai.completion.chat.ChatCompletionResult;
 import com.theokanning.openai.completion.chat.ChatMessage;
 import com.theokanning.openai.service.OpenAiService;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Minimal OpenAI client wrapper used for demo purposes.
  */
-@Service
+@Component
 public class OpenAiClient {
 
     @Value("${OPENAI_API_KEY}")
