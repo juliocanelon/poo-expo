@@ -23,10 +23,20 @@ public class ProductController {
         return service.findAll();
     }
 
+    @GetMapping("/{id}")
+    public Product get(@PathVariable Long id) {
+        return service.findById(id);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Product create(@RequestBody Product product) {
         return service.save(product);
+    }
+
+    @PutMapping("/{id}")
+    public Product update(@PathVariable Long id, @RequestBody Product product) {
+        return service.update(id, product);
     }
 
     @DeleteMapping("/{id}")

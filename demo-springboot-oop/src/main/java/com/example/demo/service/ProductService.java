@@ -20,8 +20,22 @@ public class ProductService {
         return repository.findAll();
     }
 
+    public Product findById(Long id) {
+        return repository.findById(id).orElse(null);
+    }
+
     public Product save(Product product) {
         return repository.save(product);
+    }
+
+    public Product update(Long id, Product product) {
+        return repository.findById(id)
+                .map(existing -> {
+                    existing.setName(product.getName());
+                    existing.setPrice(product.getPrice());
+                    return repository.save(existing);
+                })
+                .orElse(null);
     }
 
     public void delete(Long id) {
