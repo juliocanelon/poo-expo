@@ -30,11 +30,11 @@ public class SentimentService {
                 .toUpperCase()
                 .replaceAll("[^A-Z]", "");
         if (normalized.contains("POSITIVE")) {
-            return "POSITIVE";
+            return "Frase positiva";
         } else if (normalized.contains("NEGATIVE")) {
-            return "NEGATIVE";
+            return "Frase negativa";
         } else {
-            return "NEUTRAL";
+            return "Frase neutra";
         }
     }
 }

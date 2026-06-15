@@ -70,6 +70,21 @@
                     <mainClass>com.example.demo.DemoSpringbootOopApplication</mainClass>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <!-- No hace falta versión si usas spring-boot-starter-parent -->
+                <executions>
+                    <execution>
+                        <id>build-info</id>
+                        <goals>
+                            <!-- Genera build-info.properties para Actuator Info -->
+                            <goal>build-info</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>
